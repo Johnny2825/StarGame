@@ -13,7 +13,7 @@ public class MenuScreen extends BaseScreen {
     private Vector2 pos;
     private Vector2 speed;
     private Vector2 newPos;
-    private Vector2 testPos;
+    private Vector2 tmp;
 
     @Override
     public void show() {
@@ -22,6 +22,7 @@ public class MenuScreen extends BaseScreen {
         pos = new Vector2(100, 100);
         newPos = pos.cpy();
         speed = new Vector2(0, 0);
+        tmp = new Vector2();
     }
 
     @Override
@@ -30,13 +31,12 @@ public class MenuScreen extends BaseScreen {
         batch.begin();
         batch.draw(img, pos.x, pos.y);
         batch.end();
-
-        if (Math.abs(newPos.len() - pos.len()) > 1.5){
-            pos.add(speed);
+        tmp.set(newPos);
+        if (tmp.sub(pos).len() <= speed.len()){
+            speed.set(newPos);
         } else {
-            speed.setZero();
+            pos.add(speed);
         }
-
 
     }
 
@@ -51,11 +51,11 @@ public class MenuScreen extends BaseScreen {
             return super.keyDown(keycode);
         }
         if (speed.isZero()) {
-            speed.set(newPos.sub(pos)).nor().scl(5);
+            speed.set(newPos.sub(pos)).nor().scl(4);
         } else {
             speed.setZero();
         }
-        return super.keyDown(keycode);
+        return false;
     }
 
     @Override
@@ -64,6 +64,6 @@ public class MenuScreen extends BaseScreen {
         speed.set(newPos.cpy().sub(pos));
         speed.nor().scl(4);
 
-        return super.touchDown(screenX, screenY, pointer, button);
+        return false;
     }
 }
