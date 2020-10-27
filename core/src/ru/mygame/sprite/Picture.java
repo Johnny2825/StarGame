@@ -1,5 +1,6 @@
 package ru.mygame.sprite;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,8 +13,8 @@ public class Picture extends Sprite {
     private Vector2 speed;
     private Vector2 tmp;
 
-    public Picture(TextureRegion region) {
-        super(region);
+    public Picture(Texture region) {
+        super(new TextureRegion(region));
         touch = new Vector2();
         speed = new Vector2();
         tmp = new Vector2();

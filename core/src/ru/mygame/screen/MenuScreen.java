@@ -20,21 +20,19 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         super.show();
         bg = new Texture("textures/bg.jpg");
-        background = new Background(new TextureRegion(bg));
+        background = new Background(bg);
         pic = new Texture("textures/sun.jpg");
-        picture = new Picture(new TextureRegion(pic));
+        picture = new Picture(pic);
 
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        picture.update(delta);
+        update(delta);
+        draw();
 
-        batch.begin();
-        background.draw(batch);
-        picture.draw(batch);
-        batch.end();
+
     }
 
     @Override
@@ -54,6 +52,18 @@ public class MenuScreen extends BaseScreen {
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         picture.touchDown(touch, pointer, button);
         return false;
+    }
+
+    private void update(float delta){
+        picture.update(delta);
+    }
+
+
+    private void draw(){
+        batch.begin();
+        background.draw(batch);
+        picture.draw(batch);
+        batch.end();
     }
 
 }
