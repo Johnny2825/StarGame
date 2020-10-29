@@ -1,6 +1,8 @@
 package ru.mygame.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,15 +30,16 @@ public class MenuScreen extends BaseScreen {
 
     private Star[] stars;
 
-    public MenuScreen(Game game) {
+    public MenuScreen(Game game){
+        super();
         this.game = game;
     }
+
 
     @Override
     public void show() {
         super.show();
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
-
         bg = new Texture("textures/bg.jpg");
         background = new Background(new TextureRegion(bg));
         exitButton = new ExitButton(atlas);
@@ -46,8 +49,6 @@ public class MenuScreen extends BaseScreen {
         for (int i = 0; i < STAR_COUNT; i++){
             stars[i] = new Star(atlas);
         }
-
-
     }
 
     @Override
