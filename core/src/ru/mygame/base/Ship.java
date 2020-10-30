@@ -22,7 +22,7 @@ public abstract class Ship extends Sprite {
     protected final Vector2 bulletV;
     protected final Vector2 bulletPos;
 
-    protected float reloadTimer;
+    protected float reloadTimer = 1f;
     protected float reloadInterval;
 
     protected int hp;

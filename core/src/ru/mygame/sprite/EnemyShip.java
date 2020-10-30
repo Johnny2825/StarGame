@@ -10,12 +10,17 @@ public class EnemyShip extends Ship {
     public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
         this.worldBounds = worldBounds;
+        this.v0.set(0, -0.3f);
     }
 
     @Override
-    public void update(float delta) {
-        bulletPos.set(pos.x, getBottom());
-        super.update(delta);
+    public void update(float delta) { // увелить скорость выкатывания и стрельба при нахождении на поле
+        if (getTop() > worldBounds.getTop()){
+            pos.mulAdd(v0, delta);
+        } else {
+            bulletPos.set(pos.x, getBottom());
+            super.update(delta);
+        }
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
         }
