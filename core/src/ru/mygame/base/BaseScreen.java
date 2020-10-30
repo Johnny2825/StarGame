@@ -13,14 +13,14 @@ import com.badlogic.gdx.math.Vector2;
 import ru.mygame.math.MatrixUtils;
 import ru.mygame.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {
+public abstract class BaseScreen implements Screen, InputProcessor {
 
     private static Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
     private static float timeMusic = 0;
 
     protected SpriteBatch batch;
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     private Matrix4 worldToGl;

@@ -41,7 +41,7 @@ public class MenuScreen extends BaseScreen {
         super.show();
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
         bg = new Texture("textures/bg.jpg");
-        background = new Background(new TextureRegion(bg));
+        background = new Background(bg);
         exitButton = new ExitButton(atlas);
         playButton = new PlayButton(atlas, game);
 
