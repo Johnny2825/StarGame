@@ -4,17 +4,20 @@ import ru.mygame.base.EnemySettingsDto;
 import ru.mygame.base.Ship;
 import ru.mygame.math.Rect;
 import ru.mygame.pool.BulletPool;
+import ru.mygame.pool.ExplosionPool;
 
 public class EnemyShip extends Ship {
 
-    public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
+    private static final float START_V_Y = -0.3f;
+
+    public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
-        this.v0.set(0, -0.3f);
     }
 
     @Override
-    public void update(float delta) { // увелить скорость выкатывания и стрельба при нахождении на поле
+    public void update(float delta) { // поиграть с таймером стрельбы
         if (getTop() > worldBounds.getTop()){
             pos.mulAdd(v0, delta);
         } else {
@@ -37,6 +40,16 @@ public class EnemyShip extends Ship {
         this.reloadInterval = settings.getReloadInterval();
         setHeightProportion(settings.getHeight());
         this.hp = settings.getHp();
+        this.v0.set(0, START_V_Y);
+    }
+
+    public boolean isBulletCollision(Rect bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                        || bullet.getLeft() > getRight()
+                        || bullet.getBottom() > getTop()
+                        || bullet.getTop() < pos.y
+        );
     }
 
 }
