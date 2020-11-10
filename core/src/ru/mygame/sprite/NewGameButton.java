@@ -7,14 +7,14 @@ import ru.mygame.base.BaseButton;
 import ru.mygame.math.Rect;
 import ru.mygame.screen.GameScreen;
 
-public class PlayButton extends BaseButton {
+public class NewGameButton extends BaseButton {
 
     private final Game game;
 
-    private static final float MARGIN = 0.05f;
+    private static final float MARGIN = 0.1f;
 
-    public PlayButton(TextureAtlas atlas, Game game) {
-        super(atlas.findRegion("btPlay"));
+    public NewGameButton(TextureAtlas atlas, Game game) {
+        super(atlas.findRegion("button_new_game"));
         this.game = game;
     }
 
@@ -25,8 +25,7 @@ public class PlayButton extends BaseButton {
 
     @Override
     public void resize(Rect worldBounds) {
-        setHeightProportion(0.19f);
-        setLeft(worldBounds.getLeft() + MARGIN);
+        setHeightProportion(0.05f);
         setBottom(worldBounds.getBottom() + MARGIN);
     }
 }

@@ -8,12 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import ru.mygame.base.BaseScreen;
 import ru.mygame.math.Rect;
 import ru.mygame.sprite.Background;
-import ru.mygame.sprite.ExitButton;
-import ru.mygame.sprite.PlayButton;
+import ru.mygame.sprite.TextureGameOver;
+import ru.mygame.sprite.NewGameButton;
 import ru.mygame.sprite.Star;
 
-
-public class MenuScreen extends BaseScreen {
+public class GameOverScreen extends BaseScreen {
 
     private static final int STAR_COUNT = 256;
 
@@ -21,25 +20,26 @@ public class MenuScreen extends BaseScreen {
     private Texture bg;
     private Background background;
     private TextureAtlas atlas;
-    private ExitButton exitButton;
-    private PlayButton playButton;
+
+    private NewGameButton newGameButton;
+    private TextureGameOver textureGameOver;
 
     private Star[] stars;
 
-    public MenuScreen(Game game){
+    public GameOverScreen(Game game){
         super();
         this.game = game;
     }
 
-
     @Override
     public void show() {
         super.show();
-        atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("textures/bg.jpg");
         background = new Background(bg);
-        exitButton = new ExitButton(atlas);
-        playButton = new PlayButton(atlas, game);
+
+        textureGameOver = new TextureGameOver(atlas);
+        newGameButton = new NewGameButton(atlas, game);
 
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < STAR_COUNT; i++){
@@ -57,11 +57,11 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void resize(Rect worldBounds) {
         background.resize(worldBounds);
+        newGameButton.resize(worldBounds);
+        textureGameOver.resize(worldBounds);
         for (Star star : stars){
             star.resize(worldBounds);
         }
-        exitButton.resize(worldBounds);
-        playButton.resize(worldBounds);
     }
 
     @Override
@@ -73,19 +73,18 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        exitButton.touchDown(touch, pointer,button);
-        playButton.touchDown(touch, pointer,button);
+        newGameButton.touchDown(touch, pointer,button);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        exitButton.touchUp(touch, pointer, button);
-        playButton.touchUp(touch, pointer, button);
+        newGameButton.touchUp(touch, pointer, button);
         return false;
     }
 
     private void update(float delta){
+        newGameButton.update(delta);
         for(Star star : stars){
             star.update(delta);
         }
@@ -97,9 +96,8 @@ public class MenuScreen extends BaseScreen {
         for (Star star : stars){
             star.draw(batch);
         }
-        exitButton.draw(batch);
-        playButton.draw(batch);
+        textureGameOver.draw(batch);
+        newGameButton.draw(batch);
         batch.end();
     }
-
 }

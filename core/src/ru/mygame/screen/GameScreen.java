@@ -1,7 +1,9 @@
 package ru.mygame.screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,6 +27,8 @@ public class GameScreen extends BaseScreen {
 
     private static final int STAR_COUNT = 64;
 
+    private Game game;
+
     private TextureAtlas atlas;
     private Texture bg;
     private Sound enemyBulletSound;
@@ -37,6 +41,14 @@ public class GameScreen extends BaseScreen {
     private ExplosionPool explosionPool;
     private MainShip mainShip;
     private EnemyEmitter enemyEmitter;
+
+    private float time = 0;
+    private float finishTime = 1.5f;
+
+    public GameScreen(Game game) {
+        super();
+        this.game = game;
+    }
 
     @Override
     public void show() {
@@ -80,20 +92,24 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        bg.dispose();
-        atlas.dispose();
         bulletPool.dispose();
         enemyShipPool.dispose();
         explosionPool.dispose();
         explosionSound.dispose();
         enemyBulletSound.dispose();
         mainShip.dispose();
+        atlas.dispose();
+        bg.dispose();
         super.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        mainShip.keyDown(keycode);
+        if (Input.Keys.ESCAPE == keycode){
+            game.setScreen(new GameOverScreen(game));
+        } else {
+            mainShip.keyDown(keycode);
+        }
         return false;
     }
 
@@ -119,11 +135,22 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
-        bulletPool.updateActiveSprites(delta);
-        enemyShipPool.updateActiveSprites(delta);
-        explosionPool.updateActiveSprites(delta);
-        mainShip.update(delta);
-        enemyEmitter.generate(delta);
+        if (!mainShip.isDestroyed()) {
+            bulletPool.updateActiveSprites(delta);
+            enemyShipPool.updateActiveSprites(delta);
+            mainShip.update(delta);
+            explosionPool.updateActiveSprites(delta);
+            enemyEmitter.generate(delta);
+        } else {
+            time += delta;
+            bulletPool.updateActiveSprites(delta);
+            enemyShipPool.updateActiveSprites(delta);
+            explosionPool.updateActiveSprites(delta);
+            enemyEmitter.generate(delta);
+            if (time >= finishTime){
+                game.setScreen(new GameOverScreen(game));
+            }
+        }
     }
 
     private void checkCollision() {

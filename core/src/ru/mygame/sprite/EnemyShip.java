@@ -8,7 +8,7 @@ import ru.mygame.pool.ExplosionPool;
 
 public class EnemyShip extends Ship {
 
-    private static final float START_V_Y = -0.3f;
+    private static final float START_V_Y = -0.4f;
 
     public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
@@ -17,7 +17,7 @@ public class EnemyShip extends Ship {
     }
 
     @Override
-    public void update(float delta) { // поиграть с таймером стрельбы
+    public void update(float delta) {
         if (getTop() > worldBounds.getTop()){
             pos.mulAdd(v0, delta);
         } else {

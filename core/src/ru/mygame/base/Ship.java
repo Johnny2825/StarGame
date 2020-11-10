@@ -2,7 +2,6 @@ package ru.mygame.base;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.mygame.math.Rect;
@@ -28,7 +27,7 @@ public abstract class Ship extends Sprite {
     protected final Vector2 bulletV;
     protected final Vector2 bulletPos;
 
-    protected float reloadTimer = 1f;
+    protected float reloadTimer = 3f;
     protected float reloadInterval;
 
     protected int hp;
@@ -55,7 +54,7 @@ public abstract class Ship extends Sprite {
     }
 
     @Override
-    public void update(float delta) {
+    public void update(float delta) { //сделать перезарядку
         super.update(delta);
         pos.mulAdd(v, delta);
         reloadTimer += delta;
