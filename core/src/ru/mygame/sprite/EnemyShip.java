@@ -41,6 +41,7 @@ public class EnemyShip extends Ship {
         setHeightProportion(settings.getHeight());
         this.hp = settings.getHp();
         this.v0.set(0, START_V_Y);
+        reloadTimer = reloadInterval;
     }
 
     public boolean isBulletCollision(Rect bullet) {

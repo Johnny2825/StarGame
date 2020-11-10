@@ -50,19 +50,14 @@ public class MainShip extends Ship {
 
     @Override
     public void update(float delta) {
-        System.out.println("HP = " + hp); //сделать спрайт на HP
-        if (hp > 0) {
-            bulletPos.set(pos.x, getTop());
-            super.update(delta);
-            if (getRight() > worldBounds.getRight()) {
-                setRight(worldBounds.getRight());
-                stop();
-            } else if (getLeft() < worldBounds.getLeft()) {
-                setLeft(worldBounds.getLeft());
-                stop();
-            }
-        } else {
-            destroy();
+        bulletPos.set(pos.x, getTop());
+        super.update(delta);
+        if (getRight() > worldBounds.getRight()) {
+            setRight(worldBounds.getRight());
+            stop();
+        } else if (getLeft() < worldBounds.getLeft()) {
+            setLeft(worldBounds.getLeft());
+            stop();
         }
     }
 

@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import ru.mygame.base.BaseScreen;
 import ru.mygame.math.Rect;
 import ru.mygame.sprite.Background;
-import ru.mygame.sprite.TextureGameOver;
 import ru.mygame.sprite.NewGameButton;
 import ru.mygame.sprite.Star;
 
@@ -22,7 +21,6 @@ public class GameOverScreen extends BaseScreen {
     private TextureAtlas atlas;
 
     private NewGameButton newGameButton;
-    private TextureGameOver textureGameOver;
 
     private Star[] stars;
 
@@ -38,7 +36,6 @@ public class GameOverScreen extends BaseScreen {
         bg = new Texture("textures/bg.jpg");
         background = new Background(bg);
 
-        textureGameOver = new TextureGameOver(atlas);
         newGameButton = new NewGameButton(atlas, game);
 
         stars = new Star[STAR_COUNT];
@@ -58,7 +55,6 @@ public class GameOverScreen extends BaseScreen {
     public void resize(Rect worldBounds) {
         background.resize(worldBounds);
         newGameButton.resize(worldBounds);
-        textureGameOver.resize(worldBounds);
         for (Star star : stars){
             star.resize(worldBounds);
         }
@@ -96,7 +92,6 @@ public class GameOverScreen extends BaseScreen {
         for (Star star : stars){
             star.draw(batch);
         }
-        textureGameOver.draw(batch);
         newGameButton.draw(batch);
         batch.end();
     }
