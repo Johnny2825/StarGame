@@ -4,21 +4,26 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 
 import ru.mygame.base.BaseScreen;
 import ru.mygame.math.Rect;
 import ru.mygame.sprite.Background;
 import ru.mygame.sprite.NewGameButton;
 import ru.mygame.sprite.Star;
+import ru.mygame.utils.Font;
 
 public class GameOverScreen extends BaseScreen {
 
     private static final int STAR_COUNT = 256;
+    private static final float FONT_SIZE = 0.06f;
+    private static final float MARGIN = 0.1f;
 
     private Game game;
     private Texture bg;
     private Background background;
     private TextureAtlas atlas;
+    private Font font;
 
     private NewGameButton newGameButton;
 
@@ -35,6 +40,8 @@ public class GameOverScreen extends BaseScreen {
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("textures/bg.jpg");
         background = new Background(bg);
+        font = new Font("font/font.fnt", "font/font.png");
+        font.setSize(FONT_SIZE);
 
         newGameButton = new NewGameButton(atlas, game);
 
@@ -93,6 +100,11 @@ public class GameOverScreen extends BaseScreen {
             star.draw(batch);
         }
         newGameButton.draw(batch);
+        printInfo();
         batch.end();
+    }
+
+    private void printInfo() {
+        font.draw(batch, "Statistics: ", worldBounds.pos.x, worldBounds.getTop() - MARGIN, Align.center);
     }
 }
