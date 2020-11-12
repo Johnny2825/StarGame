@@ -11,7 +11,7 @@ public class NewGameButton extends BaseButton {
 
     private final Game game;
 
-    private static final float MARGIN = 0.1f;
+    private static final float MARGIN = 0.15f;
 
     public NewGameButton(TextureAtlas atlas, Game game) {
         super(atlas.findRegion("button_new_game"));

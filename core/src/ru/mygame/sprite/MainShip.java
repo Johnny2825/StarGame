@@ -16,7 +16,7 @@ public class MainShip extends Ship {
     private static final float SHIP_HEIGHT = 0.15f;
     private static final float MARGIN = 0.05f;
     private static final float RELOAD_INTERVAL = 0.2f;
-    private static final int HP = 10;
+    private static final int HP = 100;
 
     private static final int INVALID_POINTER = -1;
 
@@ -50,19 +50,14 @@ public class MainShip extends Ship {
 
     @Override
     public void update(float delta) {
-        System.out.println("HP = " + hp); //сделать спрайт на HP
-        if (hp > 0) {
-            bulletPos.set(pos.x, getTop());
-            super.update(delta);
-            if (getRight() > worldBounds.getRight()) {
-                setRight(worldBounds.getRight());
-                stop();
-            } else if (getLeft() < worldBounds.getLeft()) {
-                setLeft(worldBounds.getLeft());
-                stop();
-            }
-        } else {
-            destroy();
+        bulletPos.set(pos.x, getTop());
+        super.update(delta);
+        if (getRight() > worldBounds.getRight()) {
+            setRight(worldBounds.getRight());
+            stop();
+        } else if (getLeft() < worldBounds.getLeft()) {
+            setLeft(worldBounds.getLeft());
+            stop();
         }
     }
 

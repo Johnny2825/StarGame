@@ -14,7 +14,7 @@ public class EnemyBigSettingsDto extends EnemySettingsDto {
     private static final float ENEMY_BIG_HEIGHT = 0.2f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.04f;
     private static final int ENEMY_BIG_DAMAGE = 10;
-    private static final float ENEMY_BIG_RELOAD_INTERVAL = 3f;
+    private static final float ENEMY_BIG_RELOAD_INTERVAL = 2f;
     private static final int ENEMY_BIG_HP = 10;
 
     public EnemyBigSettingsDto(TextureAtlas atlas, Sound bulletSound) {
@@ -29,5 +29,10 @@ public class EnemyBigSettingsDto extends EnemySettingsDto {
         setReloadInterval(ENEMY_BIG_RELOAD_INTERVAL);
         setHeight(ENEMY_BIG_HEIGHT);
         setHp(ENEMY_BIG_HP);
+    }
+
+    @Override
+    public void setDamageForLevel(int level) {
+        setDamage(ENEMY_BIG_DAMAGE * level);
     }
 }
